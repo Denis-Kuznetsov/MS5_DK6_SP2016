@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Skill Tennis</title>
+
+    <!-- Video style -->
+    <style type="text/css">
+        video {
+            border: 4px double black;
+        }
+    </style>
+
+    <!-- Capturing -->
+    <script src="js/capture/camera.js"></script>
+    <script src="trackingjslib/build/tracking-min.js"></script>
+    <script src="js/capture/colortracking.js"></script>
+
+    <!-- Rendering -->
+    <script src="threejslib/three.js"></script>
+    <script src="js/animate/anim.js"></script>
+    <script src="js/main.js"></script>
 </head>
+
 <body>
+    <!-- Allow form -->
+    <div id="allow"></div>
+    <!-- Camera form -->
+    <video id="video" width="640" height="480" autoplay="true" ></video>
+    <canvas id="render_canvas" style="border: none;" width="700" height="700"></canvas>
+
+    <script>
+        CameraCapture();
+        TrackColor();
+        StartRender();
+    </script>
 
 </body>
 </html>
