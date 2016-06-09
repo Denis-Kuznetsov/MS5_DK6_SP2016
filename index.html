@@ -7,17 +7,24 @@
     <!-- Video style -->
     <style type="text/css">
         video {
+            transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            -ms-transform: scaleX(-1);
+            -moz-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
             border: 4px double black;
         }
     </style>
 
     <!-- Capturing -->
     <script src="js/capture/camera.js"></script>
-    <script src="trackingjslib/build/tracking-min.js"></script>
+    <script src="trackingjslib/build/tracking.js"></script>
     <script src="js/capture/colortracking.js"></script>
 
     <!-- Rendering -->
     <script src="threejslib/three.js"></script>
+    <script stc="threejslib/MTLLoader.js"></script>
+    <script stc="threejslib/OBJLoader.js"></script>
     <script src="js/animate/anim.js"></script>
     <script src="js/main.js"></script>
 </head>
@@ -35,7 +42,7 @@
         CameraCapture();
 
         Sc.TrackColor();
-        StartRender();
+        StartRender(Sc);
     </script>
 
 </body>

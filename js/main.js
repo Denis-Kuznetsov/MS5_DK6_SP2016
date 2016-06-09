@@ -1,6 +1,6 @@
-function StartRender()
+function StartRender(tr)
 {
-  var A = new anim();
+  var A = new anim(tr);
 
   /* Envi cube texture */
   var enviurls = ["textures/px.jpg", "textures/nx.jpg", "textures/py.jpg", "textures/ny.jpg", "textures/pz.jpg", "textures/nz.jpg"];
@@ -26,5 +26,6 @@ function StartRender()
       mesh.position.set(Math.sin(A.time), Math.sin(A.time + 3.14 / 2), 0);
     });
 
+  //A.LoadObj();
   A.Start();
 }
