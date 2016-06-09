@@ -27,11 +27,14 @@
     <div id="allow"></div>
     <!-- Camera form -->
     <video id="video" width="640" height="480" autoplay="true" ></video>
+    <!-- Canvas form -->
     <canvas id="render_canvas" style="border: none;" width="700" height="700"></canvas>
 
     <script>
+        var Sc = new screentracker();
         CameraCapture();
-        TrackColor();
+
+        Sc.TrackColor();
         StartRender();
     </script>
 
