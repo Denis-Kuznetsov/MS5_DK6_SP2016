@@ -35,11 +35,16 @@ function anim()
 
   self.Render = function()
   {
+    var oldtime = self.time;
     self.time = (Date.now() - self.start) / 1000.0;
+
+    if (Math.floor(oldtime) != Math.floor(self.time))
+      console.log(self.time);
 
     for (var i = 0; i < (self.Units).length; i++)
       self.Units[i].ResponseFunc(self.Units[i].Mesh);
     (self.MainRenderer).render(self.MainScene, self.MainCamera);
+
   };
 
   self.Start = function()
