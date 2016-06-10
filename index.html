@@ -23,27 +23,27 @@
 
     <!-- Rendering -->
     <script src="threejslib/three.js"></script>
-    <script stc="threejslib/MTLLoader.js"></script>
-    <script stc="threejslib/OBJLoader.js"></script>
+    <script src="threejslib/MTLLoader.js"></script>
+    <script src="threejslib/OBJLoader.js"></script>
     <script src="js/animate/anim.js"></script>
     <script src="js/main.js"></script>
 </head>
 
 <body>
+
+    <!-- Debug info -->
+    <div id="log"></div>
+
     <!-- Allow form -->
     <div id="allow"></div>
+
     <!-- Camera form -->
     <video id="video" width="640" height="480" autoplay="true" ></video>
+
     <!-- Canvas form -->
-    <canvas id="render_canvas" style="border: none;" width="700" height="700"></canvas>
+    <canvas id="render_canvas" style="border: none;" width="1000" height="800"></canvas>
 
-    <script>
-        var Sc = new screentracker();
-        CameraCapture();
-
-        Sc.TrackColor();
-        StartRender(Sc);
-    </script>
+    <script src="main.js"></script>
 
 </body>
 </html>

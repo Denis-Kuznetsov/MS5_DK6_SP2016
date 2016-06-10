@@ -2,15 +2,21 @@ function screentracker ()
 {
   var self = this;
 
-  self.trackX = 0;
-  self.trackY = 0;
-  self.trackW = 0;
-  self.trackH = 0;
+  self.X = 0;
+  self.Y = 0;
+  self.W = 0;
+  self.H = 0;
      
   self.TrackColor = function()
   {
-    var colors = new tracking.ColorTracker(["magenta"]);
+    tracking.ColorTracker.registerColor('red', function (r, g, b)
+    {
+      if (r > 200 && b < 150 && g < 150)
+        return true;
+      return false;
+    });
 
+    var colors = new tracking.ColorTracker(["red"]);
     colors.on('track', function (e)
     {
       if (e.data.length === 0)
@@ -19,10 +25,10 @@ function screentracker ()
       {
         e.data.forEach(function (rect)
         {
-          self.trackX = rect.x;
-          self.trackY = rect.y;
-          self.trackW = rect.width;
-          self.trackH = rect.height;
+          self.X = rect.x;
+          self.Y = rect.y;
+          self.W = rect.width;
+          self.H = rect.height;
         })
       }
     });
