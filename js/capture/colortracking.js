@@ -9,18 +9,12 @@ function screentracker ()
      
   self.TrackColor = function()
   {
-    tracking.ColorTracker.registerColor('red', function (r, g, b)
-    {
-      if (r > 200 && b < 150 && g < 150)
-        return true;
-      return false;
-    });
 
-    var colors = new tracking.ColorTracker(["red"]);
+    var colors = new tracking.ColorTracker(["magenta"]);
     colors.on('track', function (e)
     {
       if (e.data.length === 0)
-        console.log('Cannot find any color');
+        ;//console.log('Cannot find any color');
       else
       {
         e.data.forEach(function (rect)

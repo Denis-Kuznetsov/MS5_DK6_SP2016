@@ -92,7 +92,7 @@ function anim(ntr) {
     if (self.tr != undefined)
     {
       document.getElementById("log").innerHTML = self.tr.X + ";" + self.tr.Y;
-      self.MainCamera.position.set(0, 0, self.tr. X / 10.0);
+      //self.MainCamera.position.set(0, 0, self.tr. X / 10.0);
     }
 
     for (var i = 0; i < (self.Units).length; i++)
@@ -127,18 +127,21 @@ function anim(ntr) {
     window.requestAnimationFrame(self.Start);
   };
 
-  self.LoadObj = function () {
+  self.LoadObj = function (objfile, mtlfile, objfunc) {
+
     var manager = new THREE.LoadingManager();
-
-    manager.onProgress = function ( item, loaded, total ) {
-      console.log( item, loaded, total );
-    };
-
-    var loader = new THREE.OBJLoader( manager );
-    loader.load( 'objects/farmhouse.obj', function ( object ) {
-      self.MainScene.add(object);
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath( 'objects/' );
+    mtlLoader.load( 'makartable.mtl', function( materials ) {
+      materials.preload();
+      var loader = new THREE.OBJLoader( manager );
+      loader.setMaterials(materials);
+      loader.setPath( 'objects/' );
+      loader.load( 'makartable.obj', function ( object ) {
+        objfunc(object);
+        self.MainScene.add(object);
+      } );
     });
-
   };
 }
 

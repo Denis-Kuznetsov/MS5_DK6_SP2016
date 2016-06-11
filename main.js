@@ -21,13 +21,17 @@ var Sc = new screentracker();
   {
   });
 
-  A.MainCamera.position.z = 10;
+  A.MainCamera.position.z = 5;
+  A.MainCamera.position.y = 3;
   A.AddMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial( { color: 0xff0000 } ),
     function(mesh){
       mesh.rotation.set(A.time, A.time, 0);
       mesh.position.set(Math.sin(A.time), Math.sin(A.time + 3.14 / 2), 0);
   });
 
-  A.LoadObj();
-  A.Start(); 
-
+  A.LoadObj("makartable.obj", "makartable.mtl", function(object){
+    object.rotation.set(3.14 / 2, 0, 0);
+    object.scale.set(3, 3, 3);
+  });
+  A.Start();
+  

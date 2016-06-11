@@ -16,17 +16,12 @@
         }
     </style>
 
-    <!-- Capturing -->
-    <script src="js/capture/camera.js"></script>
+    <!-- Static lib -->
+    <script src="jquerylib/jquery-3.0.0.js"></script>
     <script src="trackingjslib/build/tracking.js"></script>
-    <script src="js/capture/colortracking.js"></script>
-
-    <!-- Rendering -->
     <script src="threejslib/three.js"></script>
     <script src="threejslib/MTLLoader.js"></script>
     <script src="threejslib/OBJLoader.js"></script>
-    <script src="js/animate/anim.js"></script>
-    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -38,12 +33,17 @@
     <div id="allow"></div>
 
     <!-- Camera form -->
-    <video id="video" width="640" height="480" autoplay="true" ></video>
+    <video id="video" width="640" height="480" autoplay="autoplay" ></video>
 
     <!-- Canvas form -->
     <canvas id="render_canvas" style="border: none;" width="1000" height="800"></canvas>
 
-    <script src="main.js"></script>
+    <!-- Capturing -->
+    <script src="js/capture/camera.js"></script>
+    <script src="js/capture/colortracking.js"></script>
 
+    <!-- Rendering -->
+    <script src="js/animate/anim.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
