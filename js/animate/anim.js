@@ -94,6 +94,7 @@ function anim(ntr) {
       document.getElementById("log").innerHTML = self.tr.X + ";" + self.tr.Y;
       //self.MainCamera.position.set(0, 0, self.tr. X / 10.0);
     }
+    document.getElementById("log").innerHTML += "    Cam:  " + self.MainCamera.position.x + " ; " + self.MainCamera.position.y +  " ; " + self.MainCamera.position.z;
 
     for (var i = 0; i < (self.Units).length; i++)
       self.Units[i].ResponseFunc(self.Units[i].Mesh);
@@ -109,13 +110,13 @@ function anim(ntr) {
       self.MainCamera.rotation.set(self.MainCamera.rotation.x - 0.05, self.MainCamera.rotation.y, self.MainCamera.rotation.z);
 
     if (goF)
-      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z - 0.05);
+      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z - 1);
     if (goB)
-      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z + 0.05);
+      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z + 1);
     if (goL)
-      self.MainCamera.position.set(self.MainCamera.position.x - 0.05, self.MainCamera.position.y , self.MainCamera.position.z);
+      self.MainCamera.position.set(self.MainCamera.position.x - 1, self.MainCamera.position.y , self.MainCamera.position.z);
     if (goR)
-      self.MainCamera.position.set(self.MainCamera.position.x + 0.05, self.MainCamera.position.y , self.MainCamera.position.z);
+      self.MainCamera.position.set(self.MainCamera.position.x + 1, self.MainCamera.position.y , self.MainCamera.position.z);
     if (goC)
       self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y - 0.05, self.MainCamera.position.z);
     if (goSp)

@@ -21,17 +21,24 @@ var Sc = new screentracker();
   {
   });
 
-  A.MainCamera.position.z = 5;
+  A.MainCamera.position.z = 20;
   A.MainCamera.position.y = 3;
-  A.AddMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial( { color: 0xff0000 } ),
-    function(mesh){
-      mesh.rotation.set(A.time, A.time, 0);
-      mesh.position.set(Math.sin(A.time), Math.sin(A.time + 3.14 / 2), 0);
-  });
 
-  A.LoadObj("makartable.obj", "makartable.mtl", function(object){
+  /*A.LoadObj("makartable.obj", "makartable.mtl", function(object){
     object.rotation.set(3.14 / 2, 0, 0);
     object.scale.set(3, 3, 3);
+  });*/
+
+
+  var b = new ball(new THREE.Vector3(0, 1, 0), new THREE.Vector3(.3, .3, 0), 0, .01, 1);
+  A.AddMesh(new THREE.SphereGeometry(1, 10, 10), new THREE.MeshBasicMaterial({color: 0xff0000}), function (mesh){
+    var t = Date.now() - A.start;
+    b.Move(A.time);
+    if (Math.floor(t) - Math.floor(A.time) != 0)
+      document.getElementById("log1").innerHTML = "POS:" + "_"+b.Position.y+"_";
+    document.getElementById("log2").innerHTML = "   VEL:"+"_"+b.Velocity.y+"_";
+    document.getElementById("log").innerHTML += "   STARTPOS:"+"_"+b.StartPosition.y+"_";
+    mesh.position.set(b.Position.x, b.Position.y, b.Position.z);
   });
   A.Start();
   
