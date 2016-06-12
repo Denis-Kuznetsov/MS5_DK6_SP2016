@@ -1,4 +1,4 @@
-var Sc = new screentracker();
+  var Sc = new screentracker();
   CameraCapture();
   Sc.TrackColor();
 
@@ -17,28 +17,65 @@ var Sc = new screentracker();
     side: THREE.BackSide
   });
 
-  A.AddMesh(new THREE.BoxGeometry(1000, 1000, 1000), envimtl, function ()
+  A.AddMesh(new THREE.BoxGeometry(1000, 1000, 1000), envimtl, function (mesh)
   {
+    mesh.position.set(A.MainCamera.position.x, A.MainCamera.position.y, A.MainCamera.position.z);
   });
 
-  A.MainCamera.position.z = 20;
-  A.MainCamera.position.y = 3;
+  A.AddMesh(new THREE.BoxGeometry(5, 5, .01), new THREE.MeshBasicMaterial({color: 0x00ff00, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(0, 5, -4.05);
+  });
 
-  /*A.LoadObj("makartable.obj", "makartable.mtl", function(object){
+  A.AddMesh(new THREE.SphereGeometry(.1, 100, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(-2.3, 7.5, -4.05);
+  });
+  A.AddMesh(new THREE.SphereGeometry(.1, 100, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(2.3, 7.5, -4.05);
+  });
+  A.AddMesh(new THREE.SphereGeometry(.1, 100, 100), new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(-2.3, 2.8, -4.05);
+  });
+  A.AddMesh(new THREE.SphereGeometry(.1, 100, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(2.3, 2.8, -4.05);
+  });
+
+  A.AddMesh(new THREE.SphereGeometry(.1, 100, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
+  {
+    mesh.position.set(2.3, 2.8, -4.05);
+  });
+
+  A.MainCamera.position.z = 10;
+  A.MainCamera.position.y = 5;
+
+  A.LoadObj("makartable.obj", "makartable.mtl", function(object){
     object.rotation.set(3.14 / 2, 0, 0);
+    object.position.set(0, 0, 0);
+    //object
     object.scale.set(3, 3, 3);
-  });*/
+  });
 
+  var R = .2;
+  var b = new ball(
+              /* Ball data       */    new THREE.Vector3(0, 5, 4.05), new THREE.Vector3(0.00, -0.05, -0.09), .01, R, 40,
+              /* Table data      */    new THREE.Vector3(-2.3, 2.28, 4.05), new THREE.Vector3(4.6, 0, 8.1),
+              /* Battledore data */    new THREE.Vector3(-2.3, 2.8, -4.05), new THREE.Vector3(4.6, 7.5 - 2.8, 0),
+                                       new THREE.Vector3(-2.3, 2.8, 4.05), new THREE.Vector3(4.6, 7.5 - 2.8, 0));
+  
+  A.AddMesh(new THREE.SphereGeometry(R, 100, 100), new THREE.MeshBasicMaterial({color: 0xff0000}), function (mesh){
 
-  var b = new ball(new THREE.Vector3(0, 1, 0), new THREE.Vector3(.3, .3, 0), 0, .01, 1);
-  A.AddMesh(new THREE.SphereGeometry(1, 10, 10), new THREE.MeshBasicMaterial({color: 0xff0000}), function (mesh){
-    var t = Date.now() - A.start;
+    document.getElementById("log").innerHTML = A.ProjW + ";" + A.ProjH;
+
+    mesh.position.set(0, -3, 0);
     b.Move(A.time);
-    if (Math.floor(t) - Math.floor(A.time) != 0)
-      document.getElementById("log1").innerHTML = "POS:" + "_"+b.Position.y+"_";
-    document.getElementById("log2").innerHTML = "   VEL:"+"_"+b.Velocity.y+"_";
-    document.getElementById("log").innerHTML += "   STARTPOS:"+"_"+b.StartPosition.y+"_";
     mesh.position.set(b.Position.x, b.Position.y, b.Position.z);
+
+    if (mesh.position.y < -3)
+        A.MainScene.remove(mesh);
   });
   A.Start();
   

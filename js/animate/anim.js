@@ -59,20 +59,39 @@ function anim(ntr) {
       goSp = 0;
   };
 
+  /* Time data */
   self.start = Date.now();
+  self.time = 0;
 
+  /* Color Tracker */
   if (ntr != undefined)
     this.tr = ntr;
 
+  /* Render */
   var render_canvas = document.getElementById("render_canvas");
+
+  /* Projection data */
+  self.ScreenW = render_canvas.width;
+  self.ScreenH = render_canvas.height;
+  self.near = .1;
+  self.far = 1000;
+  self.fov = 75;
+
+  /* Unit(mesh) data */
   self.Units = [];
+
+  /* Three.js data(initialization) */
   self.MainScene = new THREE.Scene();
-  self.MainCamera = new THREE.PerspectiveCamera(75, render_canvas.width / render_canvas.height, 0.1, 1000);
+  self.MainCamera = new THREE.PerspectiveCamera(self.fov, self.ScreenW / self.ScreenH, self.near, self.far);
   self.MainRenderer = new THREE.WebGLRenderer({canvas: render_canvas, antialias: true});
-  self.MainRenderer.setSize(render_canvas.width, render_canvas.height);
-  self.time = 0;
+  self.MainRenderer.setSize(self.ScreenW, self.ScreenH);
   document.body.appendChild(self.MainRenderer.domElement);
 
+  /* Calculating projection */
+  self.ProjW = 2 * self.near * Math.tan((self.fov / 2) * Math.PI / 180);
+  self.ProjH = self.ProjW * self.ScreenH / self.ScreenW;
+
+  /* Using interface */
   self.AddMesh = function (geometry, material, response_func) {
     mesh = new THREE.Mesh(geometry, material);
     self.Units.push(new unit(mesh, response_func));
@@ -85,6 +104,7 @@ function anim(ntr) {
     self.MainScene.add(l);
   };
 
+  /* Main render */
   self.Render = function () {
     var oldtime = self.time;
     self.time = (Date.now() - self.start) / 1000.0;
@@ -110,13 +130,13 @@ function anim(ntr) {
       self.MainCamera.rotation.set(self.MainCamera.rotation.x - 0.05, self.MainCamera.rotation.y, self.MainCamera.rotation.z);
 
     if (goF)
-      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z - 1);
+      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z - 0.05);
     if (goB)
-      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z + 1);
+      self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y, self.MainCamera.position.z + 0.05);
     if (goL)
-      self.MainCamera.position.set(self.MainCamera.position.x - 1, self.MainCamera.position.y , self.MainCamera.position.z);
+      self.MainCamera.position.set(self.MainCamera.position.x - 0.05, self.MainCamera.position.y , self.MainCamera.position.z);
     if (goR)
-      self.MainCamera.position.set(self.MainCamera.position.x + 1, self.MainCamera.position.y , self.MainCamera.position.z);
+      self.MainCamera.position.set(self.MainCamera.position.x + 0.05, self.MainCamera.position.y , self.MainCamera.position.z);
     if (goC)
       self.MainCamera.position.set(self.MainCamera.position.x, self.MainCamera.position.y - 0.05, self.MainCamera.position.z);
     if (goSp)
