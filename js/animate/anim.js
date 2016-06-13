@@ -59,6 +59,8 @@ function anim(ntr) {
       goSp = 0;
   };
 
+  self.BattledoreLT = new THREE.Vector3(0, 0, 0);
+
   /* Time data */
   self.start = Date.now();
   self.time = 0;
@@ -70,6 +72,9 @@ function anim(ntr) {
   /* Render */
   var render_canvas = document.getElementById("render_canvas");
 
+
+  self.CameraW = 320;
+  self.CameraH = 240;
   /* Projection data */
   self.ScreenW = render_canvas.width;
   self.ScreenH = render_canvas.height;
@@ -79,6 +84,8 @@ function anim(ntr) {
 
   /* Unit(mesh) data */
   self.Units = [];
+
+  var vm = new vecmath();
 
   /* Three.js data(initialization) */
   self.MainScene = new THREE.Scene();
@@ -114,7 +121,20 @@ function anim(ntr) {
       document.getElementById("log").innerHTML = self.tr.X + ";" + self.tr.Y;
       //self.MainCamera.position.set(0, 0, self.tr. X / 10.0);
     }
-    document.getElementById("log").innerHTML += "    Cam:  " + self.MainCamera.position.x + " ; " + self.MainCamera.position.y +  " ; " + self.MainCamera.position.z;
+    self.MainCameraDir = new THREE.Vector3(0, 0, -1).applyMatrix4( self.MainCamera.matrixWorld ).sub( self.MainCamera.position ).normalize();
+    self.MainCameraRight = new THREE.Vector3(1, 0, 0).applyMatrix4( self.MainCamera.matrixWorld ).sub( self.MainCamera.position ).normalize();
+    self.MainCameraUp = self.MainCamera.up;
+
+    self.deltacoordpx = new THREE.Vector2(self.CameraW / 2 - self.tr.X, self.CameraH / 2 - self.tr.Y);
+    self.deltacoordpx.y /= self.CameraH / self.ProjH ;
+    self.deltacoordpx.x /= self.CameraW / self.ProjW ;
+
+    /*self.BattledoreLT = vm.Sum(vm.Sum(vm.Sum(self.MainCamera.position, vm.Mul(self.MainCameraDir, self.near)),
+        vm.Mul(self.MainCameraUp, self.deltacoordpx.y)), vm.Mul(self.MainCameraRight, self.deltacoordpx.x));*/
+    self.BattledoreLT = vm.Sum(vm.Sum(vm.Sum(self.MainCamera.position, vm.Mul(self.MainCameraDir, self.near)),
+    vm.Mul(self.MainCameraRight, self.deltacoordpx.x)), vm.Mul(self.MainCameraUp, self.deltacoordpx.y));
+
+    document.getElementById("log").innerHTML += "DIR" + self.MainCameraDir.x + ";" + self.MainCameraDir.y + ";" + self.MainCameraDir.z;
 
     for (var i = 0; i < (self.Units).length; i++)
       self.Units[i].ResponseFunc(self.Units[i].Mesh);

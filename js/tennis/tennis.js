@@ -1,5 +1,5 @@
 function tennis()
 {
-    var ball;
-    
+    this.ball;
+
 }
