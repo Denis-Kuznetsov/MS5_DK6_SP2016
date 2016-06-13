@@ -49,7 +49,7 @@
     mesh.position.set(2.3, 2.8, -4.05);
   });
 
-  A.AddMesh(new THREE.PlaneGeometry(.05, .05, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
+  A.AddMesh(new THREE.PlaneGeometry(.01, .01, 100), new THREE.MeshBasicMaterial({color: 0xff00ff, side: THREE.DoubleSide}), function (mesh)
   {
     mesh.position.set(A.BattledoreLT.x, A.BattledoreLT.y, A.BattledoreLT.z);
   });
@@ -66,16 +66,18 @@
 
   var R = .2;
   var b = new ball(
-              /* Ball data       */    new THREE.Vector3(0, 5, 4.05), new THREE.Vector3(0, -0.05, -0.09), .01, R, 40,
+              /* Ball data       */    new THREE.Vector3(0, 10, 4.05), new THREE.Vector3(0, -0.05, -0.09), .01, R, 40,
               /* Table data      */    new THREE.Vector3(-2.3, 2.4, 4.05), new THREE.Vector3(4.6, 0, 8.1),
               /* Battledore data */    new THREE.Vector3(-2.3, 2.8, -4.05), new THREE.Vector3(4.6, 7.5 - 2.8, 0),
-                                       new THREE.Vector3(A.BattledoreLT.x - 0.025, A.BattledoreLT.y - 0.25, A.BattledoreLT.z), new THREE.Vector3(0.05, 0.05, 0));
+                                       new THREE.Vector3(-2.3, 2.8, 4.05), new THREE.Vector3(4.6, 7.5 - 2.8, 0));
   
   A.AddMesh(new THREE.SphereGeometry(R, 100, 100), new THREE.MeshBasicMaterial({color: 0xff0000}), function (mesh){
 
     document.getElementById("log").innerHTML = "Battledore:  [" + A.BattledoreLT.x + "]  [" + A.BattledoreLT.y + "]  [" + A.BattledoreLT.z + "]";
-    document.getElementById("log1").innerHTML = "CamPos:  [" + A.MainCamera.position.x + "]  [" + A.MainCamera.position.y + "]  [" + A.MainCamera.position.z + "]";
-    document.getElementById("log2").innerHTML = "BALL:  [" + Math.floor(b.Position.x) + "]  [" + Math.floor(b.Position.y) + "]  [" + Math.floor(b.Position.z) + "]";
+    document.getElementById("log1").innerHTML = "Right:  [" + A.MainCameraRight.x + "]  [" + A.MainCameraRight.y + "]  [" + A.MainCameraRight.z + "]";
+    document.getElementById("log2").innerHTML = "Up:  [" + A.MainCameraUp.x + "]  [" + A.MainCameraUp.y + "]  [" + A.MainCameraUp.z + "]";
+    document.getElementById("log3").innerHTML = "DeltaCoord:  [" + A.deltacoordpx.x + "]  [" + A.deltacoordpx.y + "]";
+    document.getElementById("log4").innerHTML = "px:  [" + A.tr.X + "]  [" + A.ScreenW + "]";
 
     mesh.position.set(0, -3, 0);
     b.Move(A.time);

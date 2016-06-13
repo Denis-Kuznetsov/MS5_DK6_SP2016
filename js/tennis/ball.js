@@ -26,7 +26,7 @@ function ball (Pos, Vel, Grav, R, timeboost, TableP, TableS, B1P, B1S, B2P, B2S)
     self.Position = self.StartPosition;
     self.Velocity = self.StartVelocity;
     self.ElapsedTime = (Date.now() - self.start) / 1000.0;
-    
+
    
 
     self.Move = function() {
@@ -38,11 +38,12 @@ function ball (Pos, Vel, Grav, R, timeboost, TableP, TableS, B1P, B1S, B2P, B2S)
         {
             self.Position.y = self.TablePos.y + self.Radius;
             self.StartPosition = self.Position;
-            self.StartVelocity = new THREE.Vector3(self.Velocity.x, -(self.Velocity.y + 0.01), self.Velocity.z);
+            var norm1 = new THREE.Vector3(0, 1, 0);
+            self.StartVelocity = vm.Sub(self.Velocity, vm.Mul(norm1, 2 * vm.Dot(self.Velocity, norm1)));
 
             self.start = Date.now();
         }
-        
+
         /* Collision with wall1 */
         if (self.Position.z - self.Radius < self.Battledore1Pos.z && self.Position.x >= self.Battledore1Pos.x && self.Position.x <= self.Battledore1Pos.x + self.Battledore1Size.x
                                                                   && self.Position.y >= self.Battledore1Pos.y && self.Position.y <= self.Battledore1Pos.y + self.Battledore1Size.y)
